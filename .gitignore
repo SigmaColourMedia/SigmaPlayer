@@ -1,0 +1,7 @@
+target
+.idea
+node_modules
+.env
+dist
+build
+static
