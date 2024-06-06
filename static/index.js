@@ -62,7 +62,7 @@ class lt extends S{constructor(){super(...arguments),this.renderOptions={host:th
                         ${t}
                     </div>
                 </div>
-            </section>`}};vt.styles=[mt,gt],e([x()],vt.prototype,"rooms",void 0),vt=e([s("s-rooms")],vt);const _t=new CSSStyleSheet;_t.replaceSync(".video {\n    background: var(--neutral-900);\n}\n\n.video-wrapper {\n    width: 1240px;\n    height: auto;\n\n}");var yt,At=_t;function wt(t){switch(t){case yt.LoadingStreamData:return"Acquiring stream data...";case yt.EstablishingRTC:return"Establishing RTC connection...";case yt.LoadingVideo:return"Loading Video...";default:return""}}!function(t){t[t.LoadingStreamData=0]="LoadingStreamData",t[t.EstablishingRTC=1]="EstablishingRTC",t[t.LoadingVideo=2]="LoadingVideo",t[t.Active=3]="Active",t[t.NotFound=4]="NotFound",t[t.UnknownError=5]="UnknownError"}(yt||(yt={}));let St=class extends lt{constructor(){super(...arguments),this.streamSate=yt.LoadingStreamData,this.connection=null,this.video=null}async establishRTC(t){try{const e=new RTCPeerConnection;e.ontrack=({track:t,streams:e})=>{this.streamSate=yt.LoadingVideo;const s=document.createElement("video");this.video=s,s.controls=!0,s.className="video",s.width=1240,s.srcObject=e[0],s.onloadeddata=()=>{this.streamSate=yt.Active}},e.onconnectionstatechange=()=>{switch(e.connectionState){case"closed":case"failed":this.streamSate=yt.UnknownError}},await e.setRemoteDescription({sdp:t,type:"offer"}),e.addTransceiver("audio",{direction:"recvonly"}),e.addTransceiver("video",{direction:"recvonly"});const s=await e.createAnswer();await e.setLocalDescription(s)}catch(t){this.streamSate=yt.UnknownError}}connectedCallback(){super.connectedCallback(),fetch(`whep?target_id=${this.streamID}`).then((t=>{t.ok?t.text().then((t=>this.establishRTC.call(this,t))):this.streamSate=yt.NotFound}))}render(){var t;switch(this.streamSate){case yt.LoadingStreamData:case yt.EstablishingRTC:case yt.LoadingVideo:return Z`
+            </section>`}};vt.styles=[mt,gt],e([x()],vt.prototype,"rooms",void 0),vt=e([s("s-rooms")],vt);const _t=new CSSStyleSheet;_t.replaceSync(".video {\n    background: var(--neutral-900);\n}\n\n.video-wrapper {\n    width: 1240px;\n    height: auto;\n\n}");var yt=_t;var At;function wt(t){switch(t){case At.LoadingStreamData:return"Acquiring stream data...";case At.EstablishingRTC:return"Establishing RTC connection...";case At.LoadingVideo:return"Loading Video...";default:return""}}!function(t){t[t.LoadingStreamData=0]="LoadingStreamData",t[t.EstablishingRTC=1]="EstablishingRTC",t[t.LoadingVideo=2]="LoadingVideo",t[t.Active=3]="Active",t[t.NotFound=4]="NotFound",t[t.UnknownError=5]="UnknownError"}(At||(At={}));let St=class extends lt{constructor(){super(...arguments),this.streamSate=At.LoadingStreamData,this.connection=null,this.video=null}async establishRTC(t){try{const e=new RTCPeerConnection;e.ontrack=({track:t,streams:e})=>{this.streamSate=At.LoadingVideo;const s=document.createElement("video");this.video=s,s.controls=!0,s.className="video",s.width=1240,s.srcObject=e[0],s.onloadeddata=()=>{this.streamSate=At.Active}},e.onconnectionstatechange=()=>{switch(e.connectionState){case"closed":case"failed":this.streamSate=At.UnknownError}},await e.setRemoteDescription({sdp:t,type:"offer"}),e.addTransceiver("audio",{direction:"recvonly"}),e.addTransceiver("video",{direction:"recvonly"});const s=await e.createAnswer();await e.setLocalDescription(s)}catch(t){this.streamSate=At.UnknownError}}connectedCallback(){super.connectedCallback();const t=new URL("whep","localhost:8080");t.searchParams.set("target_id",this.streamID),fetch(t).then((t=>{t.ok?t.text().then((t=>this.establishRTC.call(this,t))):this.streamSate=At.NotFound}))}render(){var t;switch(this.streamSate){case At.LoadingStreamData:case At.EstablishingRTC:case At.LoadingVideo:return Z`
                     <div class="loader-wrapper">
                         <svg fill="none" height="48" class="loader" viewBox="0 0 48 48" width="48"
                              xmlns="http://www.w3.org/2000/svg">
@@ -71,20 +71,20 @@ class lt extends S{constructor(){super(...arguments),this.renderOptions={host:th
                         </svg>
                         <h2>${wt(this.streamSate)}</h2>
                     </div>
-                `;case yt.NotFound:return Z`
+                `;case At.NotFound:return Z`
                     <div class="loader-wrapper">
                         <h2>404 Stream not found :(</h2>
                     </div>
-                `;case yt.UnknownError:return Z`
+                `;case At.UnknownError:return Z`
                     <div class="loader-wrapper">
                         <h2>500 Stream error :(</h2>
                     </div>
-                `;case yt.Active:return null===(t=this.renderRoot.querySelector("#wrapper"))||void 0===t||t.appendChild(this.video),Z`
+                `;case At.Active:return null===(t=this.renderRoot.querySelector("#wrapper"))||void 0===t||t.appendChild(this.video),Z`
                     <div id="wrapper" class="loader-wrapper">
                         <div class="video-wrapper">
                             ${this.video}
                         </div>
                     </div>
-                `}}};St.styles=[gt,At],e([E()],St.prototype,"streamID",void 0),e([x()],St.prototype,"streamSate",void 0),e([x()],St.prototype,"connection",void 0),e([x()],St.prototype,"video",void 0),St=e([s("s-stream")],St),t.Main=class extends lt{constructor(){super(...arguments),this.search=window.location.search}render(){const t=new URLSearchParams(window.location.search).get("watch");return t?Z`
+                `}}};St.styles=[gt,yt],e([E()],St.prototype,"streamID",void 0),e([x()],St.prototype,"streamSate",void 0),e([x()],St.prototype,"connection",void 0),e([x()],St.prototype,"video",void 0),St=e([s("s-stream")],St),t.Main=class extends lt{constructor(){super(...arguments),this.search=window.location.search}render(){const t=new URLSearchParams(window.location.search).get("watch");return t?Z`
             <s-stream streamID=${t}></s-stream>`:Z`
             <s-rooms></s-rooms>`}},t.Main.styles=ut,e([E()],t.Main.prototype,"search",void 0),t.Main=e([s("s-main")],t.Main)}({});
