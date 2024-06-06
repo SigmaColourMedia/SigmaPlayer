@@ -2,6 +2,7 @@ import {customElement, state} from "lit/decorators.js";
 import {html, LitElement} from "lit";
 import LobbyStyles from "./styles/lobby.css" assert {type: "css"};
 import LoaderStyles from "./styles/loader.css" assert {type: "css"};
+import {API_HOST} from "./config";
 
 
 @customElement("s-rooms")
@@ -12,7 +13,8 @@ export class RoomsLobby extends LitElement {
 
     connectedCallback() {
         super.connectedCallback();
-        fetch("/rooms").then(res => {
+        const url = new URL("/rooms", API_HOST)
+        fetch(url).then(res => {
             res.json().then(body => {
                 this.rooms = body.rooms
             })
