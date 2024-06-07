@@ -29,7 +29,8 @@ const config = {
         replace({
             'process.env.API_HOST': JSON.stringify(process.env.API_HOST),
             __buildDate__: () => JSON.stringify(new Date()),
-            __buildVersion: 15
+            __buildVersion: 15,
+            preventAssignment: true
         })
     ],
     watch: {
