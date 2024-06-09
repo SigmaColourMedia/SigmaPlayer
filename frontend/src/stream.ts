@@ -77,19 +77,15 @@ export class Stream extends LitElement {
         }
 
     }
+    
 
     connectedCallback() {
         super.connectedCallback();
-        const url = new URL("whep", API_HOST)
-        url.searchParams.set("target_id", this.streamID)
-        fetch(url).then(res => {
-            if (!res.ok) {
-                this.streamSate = StreamState.NotFound
-                return
-            }
-            res.text().then((sdp) => this.establishRTC.call(this, sdp))
+        getSDPOffer(this.streamID).then((text) => this.establishRTC(text)).catch(() => {
+            this.streamSate = StreamState.NotFound
         })
     }
+
 
     render() {
         switch (this.streamSate) {
@@ -159,3 +155,9 @@ export class Stream extends LitElement {
     }
 }
 
+
+async function getSDPOffer(streamID: string): Promise<string> {
+    const url = new URL("whep", API_HOST)
+    url.searchParams.set("target_id", streamID)
+    return await fetch(url).then(res => res.text())
+}

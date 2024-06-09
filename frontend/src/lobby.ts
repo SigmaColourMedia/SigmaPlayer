@@ -46,11 +46,14 @@ export class RoomsLobby extends LitElement {
                 window.location.search = searchParams.toString()
             }
             return html`
-                <div class="room-item">
+                <div class="room-item-wrapper">
+                    <img src=${PLACEHOLDER_URL}
+                         class="room-item"/>
                     <h2>Stream #${index}</h2>
                     <div class="room-button-wrapper">
                         <button @click="${onClick}" class="button-brand">Join Stream</button>
                     </div>
+                    </img>
                 </div>`
         })
 
@@ -64,3 +67,5 @@ export class RoomsLobby extends LitElement {
             </section>`;
     }
 }
+
+const PLACEHOLDER_URL = "https://cdn.discordapp.com/attachments/87143400691728384/1209612644131020881/image.png?ex=6666c74f&is=666575cf&hm=25d9f1580d30456dafedb7814df5ae72ea3bf041d17c9e6775596759c82d6700&"

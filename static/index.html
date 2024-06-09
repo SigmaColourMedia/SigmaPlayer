@@ -24,8 +24,11 @@
         margin: 0;
         padding: 0;
         background: white;
+        background: var(--neutral-900);
+        color: white;
 
         --shadow-1: 0px 4px 8px -2px rgba(23, 24, 28, 0.08), 0px 2px 4px -2px rgba(23, 24, 28, 0.06);
+        --shadow-lg: 0px 24px 48px -12px rgba(0, 0, 0, 0.65);
         --primary-50: #F6F4FE;
         --primary-200: #E0D9FB;
         --primary-500: #9E77ED;
@@ -42,7 +45,7 @@
         display: flex;
         padding: 12px;
         background: var(--neutral-900);
-        border-bottom: 1px var(--neutral-900) solid;
+        border-bottom: 2px var(--primary-600) solid;
         height: 68px;
         width: 100%;
     }
@@ -60,13 +63,13 @@
         display: flex;
         padding: 14px;
         cursor: pointer;
-        border: 1px var(--primary-50) solid;
+        border: 2px white solid;
         border-radius: 100%;
-        background: inherit;
         justify-content: center;
         align-items: center;
         font-size: 24px;
-        color: var(--primary-50);
+        background: white;
+        color: black;
     }
 </style>
 <script async src="./static/index.js"></script>
