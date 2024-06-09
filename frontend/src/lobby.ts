@@ -33,10 +33,8 @@ export class RoomsLobby extends LitElement {
             </div>`
 
         if (this.rooms.length === 0) return html`
-            <section class="wrapper">
-                <div class="overlay">
-                    <h2>Nie ma strumyczka :(</h2>
-                </div>
+            <section class="loader-wrapper">
+                <h2>Nie ma strumyczka :(</h2>
             </section>`
 
         const roomElements = this.rooms.map((roomId, index) => {
