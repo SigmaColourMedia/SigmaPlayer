@@ -1,5 +1,7 @@
 .video {
     background: var(--neutral-900);
+    box-shadow: var(--shadow-lg);
+    border: 1px black solid;
 }
 
 .video-wrapper {
