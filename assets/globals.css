@@ -7,6 +7,8 @@ html,body {
     --main-300: #403D39;
     --main-400: #252422;
     --main-500: #EB5E28;
+    color: white;
+    font-family: sans-serif, serif;
 }
 
 header{

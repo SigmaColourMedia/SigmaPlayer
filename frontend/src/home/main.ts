@@ -1,10 +1,70 @@
-import {customElement} from "lit/decorators.js";
-import {html, LitElement} from "lit";
+import { html, LitElement } from "lit";
+import HomeStyles from "./styles/home.css" assert { type: "css" };
+import { customElement, property } from "lit/decorators.js";
+import { ErrorScreen } from "./errorScreen";
+import { LoadingScreen } from "./loadingScreen";
+import { getAvailableRooms, RoomData } from "./api";
+import { EmptyLobby } from "./emptyLobby";
+import { RoomTile } from "./roomTile";
+
+enum AppState {
+  Preparing,
+  Empty,
+  Error,
+  Idle,
+}
+
+type ServiceState =
+  | {
+      state: AppState.Idle;
+      data: RoomData;
+    }
+  | {
+      state: AppState.Empty | AppState.Preparing | AppState.Error;
+    };
 
 @customElement("s-home")
-export class Home extends LitElement{
+export class Home extends LitElement {
+  static styles = HomeStyles;
 
-    render(){
-        return html`<div>siemano</div>`
+  @property() serviceState: ServiceState = { state: AppState.Preparing };
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.initAppState();
+  }
+
+  async initAppState() {
+    try {
+      const rooms = await getAvailableRooms();
+      const isLobbyEmpty = rooms.length === 0;
+
+      this.serviceState = isLobbyEmpty
+        ? {
+            state: AppState.Empty,
+          }
+        : {
+            state: AppState.Idle,
+            data: rooms,
+          };
+    } catch (err) {
+      console.error(err);
+      this.serviceState = {
+        state: AppState.Error,
+      };
     }
+  }
+
+  render() {
+    switch (this.serviceState.state) {
+      case AppState.Preparing:
+        return html`<main>${LoadingScreen}</main>`;
+      case AppState.Empty:
+        return html`<main>${EmptyLobby}</main>`;
+      case AppState.Error:
+        return html`<main>${ErrorScreen}</main>`;
+      case AppState.Idle:
+        return html`<main>${RoomTile(this.serviceState.data[0])}</main>`;
+    }
+  }
 }
