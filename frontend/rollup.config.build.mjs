@@ -14,7 +14,9 @@ const config = {
     output: {
         format: "iife",
         dir: "../static",
-        entryFileNames: "[name]-[hash].js",
+        entryFileNames: "[name].js",
+        // entryFileNames: "[name]-[hash].js",
+
     },
     plugins: [
         typescript({
@@ -29,7 +31,8 @@ const config = {
         filesize(),
         outputManifest({fileName: "../build/manifest.json"}),
         replace({
-            'process.env.API_HOST': JSON.stringify(process.env.API_HOST),
+            'process.env.WHEP_URL': JSON.stringify(process.env.WHEP_URL),
+            'process.env.NOTIFICATION_BUS_URL': JSON.stringify(process.env.NOTIFICATION_BUS_URL),
             __buildDate__: () => JSON.stringify(new Date()),
             __buildVersion: 15,
             preventAssignment: true

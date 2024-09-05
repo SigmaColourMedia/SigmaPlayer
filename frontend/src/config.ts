@@ -1,1 +1,5 @@
-export const API_HOST = process.env.API_HOST as string
+export const WHEP_URL = process.env.WHEP_URL as string;
+
+export const NOTIFICATION_BUS_URL = new URL(
+  process.env.NOTIFICATION_BUS_URL as string,
+);
