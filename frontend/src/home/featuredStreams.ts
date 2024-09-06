@@ -1,6 +1,6 @@
-import { RoomData } from "./api";
 import { html } from "lit";
 import { RoomCarousel } from "./roomCarousel";
+import { RoomData } from "../api";
 
 export function FeaturedStreams(roomData: RoomData) {
   return html`

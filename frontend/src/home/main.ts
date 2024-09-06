@@ -3,11 +3,10 @@ import HomeStyles from "./styles/home.css" assert { type: "css" };
 import { customElement, property } from "lit/decorators.js";
 import { ErrorScreen } from "./errorScreen";
 import { LoadingScreen } from "./loadingScreen";
-import { getAvailableRooms, mockRooms, RoomData } from "./api";
+import { getAvailableRooms } from "./api";
 import { EmptyLobby } from "./emptyLobby";
-import { RoomTile } from "./roomTile";
-import { RoomCarousel } from "./roomCarousel";
 import { FeaturedStreams } from "./featuredStreams";
+import { RoomData } from "../api";
 
 enum AppState {
   Preparing,

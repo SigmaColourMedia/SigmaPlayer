@@ -9,10 +9,11 @@ import pluginManifest from 'rollup-plugin-output-manifest';
 const { default: outputManifest } = pluginManifest
 const config = {
     input: {
-        "home": "./src/home/main.ts"
+        "home": "./src/home/main.ts",
+        "watch": "./src/watch/main.ts"
     },
     output: {
-        format: "iife",
+        format: "es",
         dir: "../static",
         entryFileNames: "[name].js",
         // entryFileNames: "[name]-[hash].js",

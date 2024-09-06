@@ -1,8 +1,8 @@
-import { Room } from "./api";
 import { html } from "lit";
 import { PlayIcon } from "../icons/playIcon";
 import { ViewerIcon } from "../icons/viewerIcon";
 import { FILE_STORAGE_URL } from "../config";
+import { Room } from "../api";
 
 export const RoomTile = (room: Room) =>
   html` <a href="/watch/${room.id}" title="Navigate to stream"

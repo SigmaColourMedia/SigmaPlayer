@@ -1,5 +1,6 @@
 import { NOTIFICATION_BUS_URL } from "../config";
-import { getAvailableRooms, NotificationDTO, RoomData } from "./api";
+import { getAvailableRooms } from "./api";
+import { NotificationDTO, RoomData } from "../api";
 
 type OnData = (data: RoomData) => any;
 type Config = {

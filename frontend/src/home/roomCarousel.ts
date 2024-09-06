@@ -1,8 +1,8 @@
-import { RoomData } from "./api";
 import { html } from "lit";
 import { RoomTile } from "./roomTile";
 import { LockIcon } from "../icons/lockIcon";
 import { MockRoom } from "./mockRoom";
+import { RoomData } from "../api";
 
 export function RoomCarousel(roomData: RoomData) {
   const mockRoomsToRender = roomData.length < 3 ? 3 - roomData.length : 0;

@@ -1,20 +1,7 @@
 import { WHEP_URL } from "../config";
+import { NotificationDTO, RoomData } from "../api";
 
 const ROOMS_URL = new URL("/rooms", WHEP_URL);
-
-export type RoomData = Room[];
-export type Room = {
-  id: number;
-  viewerCount: number;
-};
-
-type RoomDTO = {
-  viewer_count: number;
-  id: number;
-};
-export type NotificationDTO = {
-  rooms: RoomDTO[];
-};
 
 export async function getAvailableRooms(): Promise<RoomData> {
   const notificationDTO = (await fetch(ROOMS_URL).then((res) =>
