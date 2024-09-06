@@ -1,0 +1,10 @@
+doctype html
+html(lang="pl")
+    head
+        title SCM Watch
+        link(rel="stylesheet" href="/globals.css")
+        script(src= bundlePath type="module")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+    body
+        include header.pug
+        s-watch(id= id)

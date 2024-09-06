@@ -1,0 +1,85 @@
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.loader {
+    animation: spin 0.5s linear infinite;
+}
+
+
+main{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 80px;
+}
+
+.content-wrapper{
+    width: 100%;
+    padding: 0 24px 0 24px;
+    box-sizing: border-box;
+    max-width: 1200px;
+}
+
+.video-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    position: relative;;
+    height: auto;
+    background-color: var(--main-400);
+}
+
+.app-state-heading{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+}
+.app-state-heading svg{
+    width: 40px;
+    height: 40px;
+}
+.app-state-heading h2{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+@media screen and (min-width: 720px) {
+    .app-state-heading h2 {
+        font-size: 24px;
+    }
+    .app-state-heading svg{
+        width: 60px;
+        height: 60px;
+    }
+    .play-wrapper svg{
+        height: 60px;
+        width: 60px;
+    }
+}
+video{
+    visibility: hidden;
+    width: 100%;
+    height: auto;
+}
+
+.play-wrapper{
+    z-index: 3;
+    pointer-events: none;
+    position: absolute;
+}
+.play-wrapper svg{
+    height: 40px;
+    width: 40px;
+    fill: var(--main-100);
+}
+
+.video-paused{
+    filter: brightness(50%);
+}
