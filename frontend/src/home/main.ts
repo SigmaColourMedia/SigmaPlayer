@@ -3,9 +3,11 @@ import HomeStyles from "./styles/home.css" assert { type: "css" };
 import { customElement, property } from "lit/decorators.js";
 import { ErrorScreen } from "./errorScreen";
 import { LoadingScreen } from "./loadingScreen";
-import { getAvailableRooms, RoomData } from "./api";
+import { getAvailableRooms, mockRooms, RoomData } from "./api";
 import { EmptyLobby } from "./emptyLobby";
 import { RoomTile } from "./roomTile";
+import { RoomCarousel } from "./roomCarousel";
+import { FeaturedStreams } from "./featuredStreams";
 
 enum AppState {
   Preparing,
@@ -64,7 +66,11 @@ export class Home extends LitElement {
       case AppState.Error:
         return html`<main>${ErrorScreen}</main>`;
       case AppState.Idle:
-        return html`<main>${RoomTile(this.serviceState.data[0])}</main>`;
+        return html`<main>
+          <div class="content-wrapper">
+            ${FeaturedStreams(this.serviceState.data)}
+          </div>
+        </main>`;
     }
   }
 }

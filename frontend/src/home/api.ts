@@ -25,3 +25,10 @@ export async function getAvailableRooms(): Promise<RoomData> {
     viewerCount: room.viewer_count,
   }));
 }
+
+export async function mockRooms(): Promise<RoomData> {
+  return [
+    { id: 1, viewerCount: 0 },
+    { id: 2, viewerCount: 2 },
+  ];
+}

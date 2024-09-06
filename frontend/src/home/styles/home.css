@@ -1,7 +1,15 @@
 main{
     width: 100%;
+    display: flex;
     justify-content: center;
     padding-top: 80px;
+}
+
+.content-wrapper{
+    width: 100%;
+    padding: 0 24px 0 24px;
+    box-sizing: border-box;
+    max-width: 1200px;
 }
 /*
 Animations
@@ -80,15 +88,6 @@ a {
     color: inherit;
     text-decoration: none;
 }
-.room-image-wrapper {
-    width: 100%;
-    height: 100%;
-}
-.room-image-wrapper img{
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-}
 
 
 .room-tile-controls{
@@ -132,6 +131,51 @@ a {
     overflow: hidden;
     background-color: var(--main-200);
 }
-.room-image-wrapper svg{
-    fill: var(--main-400);
+
+.room-image-wrapper img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/*
+Room Carousel
+ */
+
+.rooms-carousel{
+    display: flex;
+    overflow: auto;
+    gap: 24px;
+
+}
+
+/*
+Featured streams
+ */
+
+.streams-showcase{
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+}
+
+.streams-showcase::-webkit-scrollbar{
+    display: none;  /* Safari and Chrome */
+}
+.streams-showcase > h2{
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.mock-room{
+    width: 340px;
+    min-width: 340px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-400);
+}
+.mock-room svg{
+    width: 80px;
+    height: 80px;
 }
