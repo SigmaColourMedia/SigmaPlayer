@@ -4,6 +4,21 @@
     }
 }
 
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .5;
+    }
+}
+
+
+.pulse{
+    animation: pulse 2s ease infinite;
+
+}
+
 
 .loader {
     animation: spin 0.5s linear infinite;
@@ -19,6 +34,8 @@ main{
 
 .content-wrapper{
     width: 100%;
+    display: flex;
+    flex-direction: column;
     padding: 0 24px 0 24px;
     box-sizing: border-box;
     max-width: 1200px;
@@ -70,7 +87,7 @@ video{
 }
 
 .play-wrapper{
-    z-index: 3;
+    z-index: 1;
     pointer-events: none;
     position: absolute;
 }
@@ -82,4 +99,95 @@ video{
 
 .video-paused{
     filter: brightness(50%);
+}
+
+/*
+Footer
+ */
+
+.footer{
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: end;
+    box-sizing: border-box;
+    padding: 8px 4px 8px 4px;
+    gap: 2px;
+}
+/*
+Drawer
+ */
+
+.drawer-box{
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    width: 100%;
+    transform: translate(-50%, calc(100% - 40px));
+    transition: transform 0.15s ease;
+}
+
+
+.drawer-button{
+    width: 180px;
+    border: 1px var(--main-200) solid;
+    border-bottom: none;
+    margin: 0;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: var(--main-400);
+    height: 40px;
+    transition: color 0.15s ease;
+}
+
+.drawer-box:has(.drawer-input:hover) > .drawer-button{
+    background-color: var(--main-500);
+}
+
+.drawer-button > svg{
+    transition: transform 0.15s ease;
+}
+
+.drawer-box:has(.drawer-input:checked){
+    transform: translate(-50%, 0)
+}
+
+.drawer-box:has(.drawer-input:checked) > .drawer-button > svg{
+    transform: rotate(180deg);
+}
+.drawer-input {
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    padding: 0;
+    text-decoration: none;
+    width: 180px;
+    height: 40px;
+}
+
+
+.drawer {
+    background-color: var(--main-200);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    gap: 24px;
+    padding: 80px;
+    width: 100%;
+}
+.drawer >h2 {
+    margin: 0;
+    padding: 0;
+    color: var(--main-400);
 }
