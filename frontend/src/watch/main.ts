@@ -1,11 +1,17 @@
 import { customElement, property, query, state } from "lit/decorators.js";
 import { html, LitElement, nothing } from "lit";
 import WatchStyles from "./styles/watch.css" assert { type: "css" };
+import RoomStyles from "../styles/roomTiles.css" assert { type: "css" };
+
 import { createRTCConnection, getStreamSDPAnswer } from "./api";
 import { LoaderIcon } from "../icons/loaderIcon";
 import { EmptyListIcon } from "../icons/emptyListIcon";
 import { ConnectionLostIcon } from "../icons/connectionLostIcon";
 import { PlayIcon } from "../icons/playIcon";
+import { FooterManager } from "./footer";
+import { RoomData } from "../api";
+import { createRoomDataSubscriber } from "./roomDataSubscriber";
+import { DrawerManager } from "./drawer";
 
 enum AppState {
   EstablishRTC,
@@ -16,9 +22,24 @@ enum AppState {
   RTCError,
 }
 
+export enum NotificationState {
+  Open,
+  Loading,
+  Closed,
+}
+
+export type NotificationSubscriber =
+  | {
+      state: NotificationState.Closed | NotificationState.Loading;
+    }
+  | {
+      state: NotificationState.Open;
+      data: RoomData;
+    };
+
 @customElement("s-watch")
 export class Watch extends LitElement {
-  static styles = WatchStyles;
+  static styles = [WatchStyles, RoomStyles];
 
   @property()
   id: string;
@@ -26,13 +47,18 @@ export class Watch extends LitElement {
   video: HTMLVideoElement;
   @query(".video-wrapper")
   video_wrapper: HTMLDivElement;
-  @state()
-  is_video_paused = true;
 
   @state()
   appState: AppState = AppState.EstablishRTC;
+
+  @state()
+  notificationSubscriber: NotificationSubscriber = {
+    state: NotificationState.Loading,
+  };
+
   connectedCallback() {
     super.connectedCallback();
+    this.initNotificationSubscriber();
     this.initRTCStream();
   }
 
@@ -52,8 +78,6 @@ export class Watch extends LitElement {
         this.video.onplay = () => {
           this.appState = AppState.Playing;
         };
-        this.video.onwaiting = () => console.log("waiting");
-        this.video.onstalled = () => console.log("Stalled");
       };
 
       const sdp_offer = await createOffer(conn);
@@ -70,14 +94,36 @@ export class Watch extends LitElement {
     }
   }
 
+  initNotificationSubscriber() {
+    createRoomDataSubscriber({
+      onData: (data) => {
+        this.notificationSubscriber = {
+          state: NotificationState.Open,
+          data,
+        };
+      },
+      onOpen: () => {
+        this.notificationSubscriber = {
+          state: NotificationState.Loading,
+        };
+      },
+      onError: () => {
+        this.notificationSubscriber = {
+          state: NotificationState.Closed,
+        };
+      },
+    });
+  }
+
   render() {
-    console.log(this.appState);
     return html`<main>
       <div class="content-wrapper">
         <div class="video-wrapper">
           ${AppStateHeading(this.appState)}
         <video class="${this.appState == AppState.VideoPaused ? "video-paused" : ""}" controls>
         </div>
+        ${FooterManager(this.notificationSubscriber, Number(this.id))}
+        ${DrawerManager(this.notificationSubscriber)}
       </div>
     </main>`;
   }

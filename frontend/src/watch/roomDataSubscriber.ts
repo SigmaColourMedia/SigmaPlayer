@@ -1,5 +1,5 @@
 import { NOTIFICATION_BUS_URL } from "../config";
-import { getAvailableRooms } from "./api";
+import { getAvailableRooms } from "../home/api";
 import { NotificationDTO, RoomData } from "../api";
 
 type OnData = (data: RoomData) => any;
@@ -9,7 +9,7 @@ type Config = {
   onOpen?: () => void;
 };
 const mockFunc = () => {};
-export function openSink({
+export function createRoomDataSubscriber({
   onData = mockFunc,
   onOpen = mockFunc,
   onError = mockFunc,
