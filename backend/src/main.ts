@@ -3,6 +3,7 @@ import express from "express";
 import { readBuildManifest } from "./build";
 import path from "node:path";
 import compression from "compression";
+import { STORAGE_URL } from "./config";
 
 const APP_PORT = 9000;
 
@@ -23,9 +24,12 @@ app.get("/", (req, res, next) => {
 app.get("/watch/:id", (req, res) => {
   const id = req.params.id;
   const bundlePath = path.join("/", buildManifest["watch.js"]);
+
+  const thumbnailURL = new URL(id, STORAGE_URL);
   res.render("watch", {
     id,
     bundlePath,
+    thumbnailURL,
   });
 });
 app.listen(APP_PORT, () => console.log(`App listening on port: ${APP_PORT}`));
