@@ -15,8 +15,7 @@ const config = {
     output: {
         format: "es",
         dir: "../static",
-        entryFileNames: "[name].js",
-        // entryFileNames: "[name]-[hash].js",
+        entryFileNames: "[name]-[hash].js",
 
     },
     plugins: [
