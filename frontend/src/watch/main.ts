@@ -123,7 +123,7 @@ export class Watch extends LitElement {
         <video class="${this.appState == AppState.VideoPaused ? "video-paused" : ""}" controls>
         </div>
         ${FooterManager(this.notificationSubscriber, Number(this.id))}
-        ${DrawerManager(this.notificationSubscriber)}
+        ${DrawerManager.call(this, this.notificationSubscriber)}
       </div>
     </main>`;
   }

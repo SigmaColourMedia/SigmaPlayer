@@ -29,7 +29,7 @@ main{
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 80px;
+    padding-top: 60px;
 }
 
 .content-wrapper{
@@ -152,6 +152,16 @@ Drawer
     background-color: var(--main-500);
 }
 
+.drawer-box:has(.drawer-input:disabled) > .drawer-button{
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+
+.drawer-input:disabled{
+    cursor: not-allowed;
+}
+
 .drawer-button > svg{
     transition: transform 0.15s ease;
 }
@@ -177,6 +187,7 @@ Drawer
 
 
 .drawer {
+    border-top: 2px var(--main-400) solid           ;
     background-color: var(--main-200);
     display: flex;
     flex-direction: column;
