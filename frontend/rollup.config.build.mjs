@@ -7,6 +7,7 @@ import css from "rollup-plugin-import-css";
 import replace from "@rollup/plugin-replace";
 import pluginManifest from 'rollup-plugin-output-manifest';
 const { default: outputManifest } = pluginManifest
+
 const config = {
     input: {
         "home": "./src/home/main.ts",
@@ -14,7 +15,7 @@ const config = {
     },
     output: {
         format: "es",
-        dir: "../static",
+        dir: process.env.BUILD_DIR,
         entryFileNames: "[name]-[hash].js",
 
     },
@@ -24,12 +25,13 @@ const config = {
             exclude: '**/*.test.*',
             typescript: typescriptEngine,
             declaration: false,
+            outDir: process.env.BUILD_DIR
         }),
         css(),
         nodeResolve(),
         terser(),
         filesize(),
-        outputManifest({fileName: "../build/manifest.json"}),
+        outputManifest({fileName: `manifest.json`}),
         replace({
             'process.env.FILE_STORAGE_URL': JSON.stringify(process.env.FILE_STORAGE_URL),
             'process.env.WHEP_URL': JSON.stringify(process.env.WHEP_URL),

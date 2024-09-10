@@ -12,7 +12,6 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "outDir": "../static",
     "useDefineForClassFields": false,
     "rootDir": "./",
     "declaration": false,
