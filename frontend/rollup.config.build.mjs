@@ -33,9 +33,7 @@ const config = {
         filesize(),
         outputManifest({fileName: `manifest.json`}),
         replace({
-            'process.env.FILE_STORAGE_URL': JSON.stringify(process.env.FILE_STORAGE_URL),
-            'process.env.WHEP_URL': JSON.stringify(process.env.WHEP_URL),
-            'process.env.NOTIFICATION_BUS_URL': JSON.stringify(process.env.NOTIFICATION_BUS_URL),
+            'process.env.SMID_URL': JSON.stringify(process.env.SMID_URL),
             __buildDate__: () => JSON.stringify(new Date()),
             __buildVersion: 15,
             preventAssignment: true
