@@ -1,8 +1,8 @@
 import { html } from "lit";
 import { PlayIcon } from "../icons/playIcon";
 import { ViewerIcon } from "../icons/viewerIcon";
-import { FILE_STORAGE_URL } from "../config";
 import { Room } from "../api";
+import { SMID_URL } from "../config";
 
 export const RoomTile = (room: Room) =>
   html` <a href="/watch/${room.id}" title="Navigate to stream"
@@ -28,6 +28,6 @@ const RoomTileImage = (id: number) =>
   </div> `;
 
 function getTileImage(id: number): string {
-  const fileURL = new URL(`/${id}.webp`, FILE_STORAGE_URL);
+  const fileURL = new URL(`/images?image=${id}.webp`, SMID_URL);
   return fileURL.href;
 }

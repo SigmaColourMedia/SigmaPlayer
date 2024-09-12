@@ -1,6 +1,8 @@
-import { NOTIFICATION_BUS_URL } from "../config";
 import { getAvailableRooms } from "../home/api";
 import { NotificationDTO, RoomData } from "../api";
+import { SMID_URL } from "../config";
+
+const NOTIFICATION_BUS_URL = new URL("/notifications", SMID_URL);
 
 type OnData = (data: RoomData) => any;
 type Config = {
@@ -14,7 +16,6 @@ export function createRoomDataSubscriber({
   onOpen = mockFunc,
   onError = mockFunc,
 }: Config) {
-  getAvailableRooms();
   const sink = new EventSource(NOTIFICATION_BUS_URL);
 
   sink.onmessage = (message: MessageEvent<string>) => {
