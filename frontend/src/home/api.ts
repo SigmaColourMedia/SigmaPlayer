@@ -1,7 +1,7 @@
 import { NotificationDTO, RoomData } from "../api";
-import { SMID_URL } from "../config";
+import { SINDER_URL } from "../config";
 
-const ROOMS_URL = new URL("/rooms", SMID_URL);
+const ROOMS_URL = new URL("/rooms", SINDER_URL);
 
 export async function getAvailableRooms(): Promise<RoomData> {
   const notificationDTO = (await fetch(ROOMS_URL).then((res) =>

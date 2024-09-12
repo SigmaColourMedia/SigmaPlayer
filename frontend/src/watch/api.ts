@@ -1,6 +1,6 @@
-import { SMID_URL } from "../config";
+import { SINDER_URL } from "../config";
 
-const WHEP_ENDPOINT = new URL("/whep", SMID_URL);
+const WHEP_ENDPOINT = new URL("/whep", SINDER_URL);
 
 export async function getStreamSDPAnswer(
   sdpOffer: string,
