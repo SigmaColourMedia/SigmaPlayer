@@ -1,8 +1,8 @@
 import { getAvailableRooms } from "../home/api";
 import { NotificationDTO, RoomData } from "../api";
-import { SMID_URL } from "../config";
+import { SINDER_URL } from "../config";
 
-const NOTIFICATION_BUS_URL = new URL("/notifications", SMID_URL);
+const NOTIFICATION_BUS_URL = new URL("/notifications", SINDER_URL);
 
 type OnData = (data: RoomData) => any;
 type Config = {

@@ -1,1 +1,1 @@
-export const SMID_URL = process.env.SMID_URL;
+export const SUNDER_URL = process.env.SINDER_URL;

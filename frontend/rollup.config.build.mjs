@@ -33,7 +33,7 @@ const config = {
         filesize(),
         outputManifest({fileName: `manifest.json`}),
         replace({
-            'process.env.SMID_URL': JSON.stringify(process.env.SMID_URL),
+            'process.env.SINDER_URL': JSON.stringify(process.env.SINDER_URL),
             __buildDate__: () => JSON.stringify(new Date()),
             __buildVersion: 15,
             preventAssignment: true
