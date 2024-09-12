@@ -3,7 +3,7 @@ import express from "express";
 import { readBuildManifest } from "./build";
 import path from "node:path";
 import compression from "compression";
-import { STORAGE_URL } from "./config";
+import { SMID_URL } from "./config";
 
 const APP_PORT = 9000;
 
@@ -25,7 +25,7 @@ app.get("/watch/:id", (req, res) => {
   const id = req.params.id;
   const bundlePath = path.join("/", buildManifest["watch.js"]);
 
-  const thumbnailURL = new URL(id, STORAGE_URL);
+  const thumbnailURL = new URL("/images?image=id", SMID_URL);
   res.render("watch", {
     id,
     bundlePath,
