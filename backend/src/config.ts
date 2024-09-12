@@ -1,1 +1,1 @@
-export const STORAGE_URL = process.env.FILE_STORAGE_URL;
+export const SMID_URL = process.env.SMID_URL;
