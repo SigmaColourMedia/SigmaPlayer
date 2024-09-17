@@ -22,7 +22,7 @@ const RoomTileImage = (id: number) =>
   html`<div class="room-image-wrapper">
     <img
       src=${getTileImage(id)}
-      onerror="this.src='fallback.svg';this.style.objectFit='none'"
+      onerror="this.src='/fallback.svg';this.style.objectFit='none'"
       alt="Thumbnail image"
     />
   </div> `;
