@@ -7,7 +7,7 @@ import { EmptyLobby } from "./emptyLobby";
 import { FeaturedStreams } from "./featuredStreams";
 import { RoomData } from "../api";
 import { NotificationState } from "../watch/main";
-import { createRoomDataSubscriber } from "../watch/roomDataSubscriber";
+import { getAvailableRooms } from "./api";
 
 export type NotificationSubscriber =
   | {
@@ -31,25 +31,18 @@ export class Home extends LitElement {
     this.initNotificationSubscriber();
   }
 
-  initNotificationSubscriber() {
-    createRoomDataSubscriber({
-      onData: (data) => {
-        this.notificationSubscriber = {
-          state: NotificationState.Open,
-          data,
-        };
-      },
-      onOpen: () => {
-        this.notificationSubscriber = {
-          state: NotificationState.Loading,
-        };
-      },
-      onError: () => {
-        this.notificationSubscriber = {
-          state: NotificationState.Closed,
-        };
-      },
-    });
+  async initNotificationSubscriber() {
+    try {
+      const data = await getAvailableRooms();
+      this.notificationSubscriber = {
+        state: NotificationState.Open,
+        data,
+      };
+    } catch {
+      this.notificationSubscriber = {
+        state: NotificationState.Closed,
+      };
+    }
   }
 
   render() {
