@@ -1,3 +1,4 @@
+import { getAvailableRooms } from "../home/api";
 import { NotificationDTO, RoomData } from "../api";
 import { SINDER_URL } from "../config";
 
