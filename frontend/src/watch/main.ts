@@ -12,7 +12,6 @@ import { FooterManager } from "./footer";
 import { RoomData } from "../api";
 import { createRoomDataSubscriber } from "./roomDataSubscriber";
 import { DrawerManager } from "./drawer";
-import { getAvailableRooms } from "../home/api";
 
 enum AppState {
   EstablishRTC,
@@ -95,18 +94,25 @@ export class Watch extends LitElement {
     }
   }
 
-  async initNotificationSubscriber() {
-    try {
-      const data = await getAvailableRooms();
-      this.notificationSubscriber = {
-        state: NotificationState.Open,
-        data,
-      };
-    } catch {
-      this.notificationSubscriber = {
-        state: NotificationState.Closed,
-      };
-    }
+  initNotificationSubscriber() {
+    createRoomDataSubscriber({
+      onData: (data) => {
+        this.notificationSubscriber = {
+          state: NotificationState.Open,
+          data,
+        };
+      },
+      onOpen: () => {
+        this.notificationSubscriber = {
+          state: NotificationState.Loading,
+        };
+      },
+      onError: () => {
+        this.notificationSubscriber = {
+          state: NotificationState.Closed,
+        };
+      },
+    });
   }
 
   render() {
