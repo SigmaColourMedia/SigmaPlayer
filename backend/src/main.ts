@@ -25,7 +25,7 @@ app.get("/watch/:id", (req, res) => {
   const id = req.params.id;
   const bundlePath = path.join("/", buildManifest["watch.js"]);
 
-  const thumbnailURL = new URL("/images?image=id", SUNDER_URL);
+  const thumbnailURL = new URL(`/images?image=${id}`, SUNDER_URL);
   res.render("watch", {
     id,
     bundlePath,
