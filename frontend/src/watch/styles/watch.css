@@ -14,7 +14,7 @@
 }
 
 
-.pulse{
+.pulse {
     animation: pulse 2s ease infinite;
 
 }
@@ -25,14 +25,14 @@
 }
 
 
-main{
+main {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 60px;
+    padding-top: 80px;
 }
 
-.content-wrapper{
+.content-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -41,7 +41,7 @@ main{
     max-width: 1200px;
 }
 
-.video-wrapper{
+.video-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,53 +51,63 @@ main{
     background-color: var(--main-400);
 }
 
-.app-state-heading{
+.app-state-heading {
     position: absolute;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 4px;
 }
-.app-state-heading svg{
+
+.app-state-heading svg {
     width: 40px;
     height: 40px;
 }
-.app-state-heading h2{
+
+.app-state-heading h2 {
     font-size: 14px;
     font-weight: 500;
 }
 
 @media screen and (min-width: 720px) {
+    main {
+        padding-top: 60px;
+    }
+
     .app-state-heading h2 {
         font-size: 24px;
     }
-    .app-state-heading svg{
+
+    .app-state-heading svg {
         width: 60px;
         height: 60px;
     }
-    .play-wrapper svg{
+
+    .play-wrapper svg {
         height: 60px;
         width: 60px;
     }
 }
-video{
+
+video {
     visibility: hidden;
     width: 100%;
     height: auto;
 }
 
-.play-wrapper{
+.play-wrapper {
     z-index: 1;
     pointer-events: none;
     position: absolute;
 }
-.play-wrapper svg{
+
+.play-wrapper svg {
     height: 40px;
     width: 40px;
     fill: var(--main-100);
 }
 
-.video-paused{
+.video-paused {
     filter: brightness(50%);
 }
 
@@ -105,7 +115,7 @@ video{
 Footer
  */
 
-.footer{
+.footer {
     width: 100%;
     display: flex;
     align-content: center;
@@ -114,11 +124,12 @@ Footer
     padding: 8px 4px 8px 4px;
     gap: 2px;
 }
+
 /*
 Drawer
  */
 
-.drawer-box{
+.drawer-box {
     z-index: 3;
     display: flex;
     flex-direction: column;
@@ -132,7 +143,7 @@ Drawer
 }
 
 
-.drawer-button{
+.drawer-button {
     width: 180px;
     border: 1px var(--main-200) solid;
     border-bottom: none;
@@ -148,31 +159,32 @@ Drawer
     transition: color 0.15s ease;
 }
 
-.drawer-box:has(.drawer-input:hover) > .drawer-button{
+.drawer-box:has(.drawer-input:hover) > .drawer-button {
     background-color: var(--main-500);
 }
 
-.drawer-box:has(.drawer-input:disabled) > .drawer-button{
+.drawer-box:has(.drawer-input:disabled) > .drawer-button {
     background-color: grey;
     cursor: not-allowed;
 }
 
 
-.drawer-input:disabled{
+.drawer-input:disabled {
     cursor: not-allowed;
 }
 
-.drawer-button > svg{
+.drawer-button > svg {
     transition: transform 0.15s ease;
 }
 
-.drawer-box:has(.drawer-input:checked){
+.drawer-box:has(.drawer-input:checked) {
     transform: translate(-50%, 0)
 }
 
-.drawer-box:has(.drawer-input:checked) > .drawer-button > svg{
+.drawer-box:has(.drawer-input:checked) > .drawer-button > svg {
     transform: rotate(180deg);
 }
+
 .drawer-input {
     margin: 0;
     opacity: 0;
@@ -187,7 +199,7 @@ Drawer
 
 
 .drawer {
-    border-top: 2px var(--main-400) solid           ;
+    border-top: 2px var(--main-400) solid;
     background-color: var(--main-200);
     display: flex;
     flex-direction: column;
@@ -197,7 +209,8 @@ Drawer
     padding: 80px;
     width: 100%;
 }
-.drawer >h2 {
+
+.drawer > h2 {
     margin: 0;
     padding: 0;
     color: var(--main-400);
