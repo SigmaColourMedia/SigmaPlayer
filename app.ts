@@ -3,10 +3,8 @@ import logger from "morgan";
 import { index } from "./routes/index.ts";
 import { watchRoute } from "./routes/watch.ts";
 import { eventsRoute } from "./routes/events.ts";
-import compression from "compression";
 
 export const app = express();
-app.use(compression());
 app.set("view engine", "pug");
 app.use(logger("dev"));
 app.use(index);
