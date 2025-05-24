@@ -1,7 +1,7 @@
 import type { RequestHandler } from "express";
 import type { RoomData } from "../routes/index.ts";
 
-export const indexHandle: RequestHandler<Params, any, any> = async (
+export const indexHandle: RequestHandler = async (
   req,
   res,
 ) => {
