@@ -9,7 +9,8 @@ export const indexHandle: RequestHandler = async (
     const roomURL = new URL("/rooms", process.env.SMID_HTTP_ADDRESS);
     const rooms: RoomData[] = await fetch(roomURL).then((res) => res.json());
     res.render("index", { rooms });
-  } catch {
+  } catch(err) {
+    console.error("Fail at indexHandle: ",err)
     res.render("500");
   }
 };
