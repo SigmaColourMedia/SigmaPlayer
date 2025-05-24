@@ -1,0 +1,28 @@
+html
+    head
+        title= "Sigma Watch"
+        link(rel="stylesheet", type="text/css", href="/static/index.css")
+        link(rel="stylesheet", type="text/css", href="/static/room.css")
+        script(src="/static/room.js" async="true")
+        meta(name="og:image" content=`/images/${room.room_id}.webp`)
+        meta(property="og:image:type" content="image/webp")
+    body
+        header
+        nav
+            a(href="/")="Back to Homepage"
+        h1(style="text-align: center;")=`Watch Live`
+
+        video(controls="true" poster=`/images/${room.room_id}.webp`)
+        aside
+            span=`Viewers: `
+            span(id="viewer-counter")=room.viewer_count
+        dialog(id="offline-dialog")
+            h3 Connection lost with the remote server
+            p A network error occurred and the video is now offline.
+            a(href="/")="Back to Homepage"
+        dialog(id="error-dialog")
+            h3 Could not establish connection with the remote server
+            p Unknown error occurred and a remote connection could not be established.
+            a(href="/")="Back to Homepage"
+
+

@@ -1,0 +1,12 @@
+body {
+    max-width: 1080px;
+}
+
+video {
+    border: 1px gray solid;
+    width: 100%;
+}
+
+dialog::backdrop {
+    background-color: rgb(0, 0, 0, 0.4);
+}

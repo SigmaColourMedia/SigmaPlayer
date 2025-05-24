@@ -1,0 +1,16 @@
+html
+    include head.pug
+    body
+        header
+            h1(style="text-align:center;") Sigma Watch | Official
+        if rooms.length === 0
+            h2 Offline
+            p Nikt nie streamuje, ale możesz być pierwszy :)
+        else
+            h2 Now Online:
+            ul
+                each room in rooms
+                    li
+                        a(href=`/watch/${room.room_id}` class="thumbnail-link")
+                            img(src=`/images/${room.room_id}.webp` type="image/webp" onerror="this.src='/static/fallback.png'")
+                            span=`Viewers: ${room.viewer_count}`
