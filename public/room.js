@@ -29,8 +29,6 @@ function showSteamCloseDialog() {
   offlineDialog.showModal();
 }
 
-console.log(showSteamCloseDialog);
-
 async function startWhep() {
   const conn = new RTCPeerConnection();
   conn.addTransceiver("audio", { direction: "recvonly" });
@@ -40,7 +38,6 @@ async function startWhep() {
   };
 
   conn.onconnectionstatechange = () => {
-    console.log("connection state change to ", conn.connectionState);
     switch (conn.connectionState) {
       case "closed": {
         showSteamCloseDialog();
