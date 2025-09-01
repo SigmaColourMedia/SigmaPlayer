@@ -30,16 +30,36 @@ async function fetchThumbnail(uuid: string) {
 async function notifyDiscord(uuid: string) {
   const roomURL = new URL(`/watch/${uuid}`, process.env.HOST_URL);
   const imageURL = new URL(`/images/${uuid}.webp`, process.env.HOST_URL);
+
   const payload = {
-    content: `Nowy strumyczek pod ${roomURL.href}`,
-    embeds: [
+    flags: 32768,
+    components: [
       {
-        title: `Nowy strumyczek :)`,
-        url: roomURL.href,
-        type: "video",
-        image: {
-          url: imageURL,
+        type: 9,
+        components: [
+          {
+            type: 10,
+            content: `Nowy strumyczek pod ${roomURL.href}`,
+          },
+        ],
+        accessory: {
+          type: 2,
+          style: 5,
+          label: "Strumyczek",
+          url: roomURL.href,
         },
+      },
+      {
+        type: 12,
+        items: [
+          {
+            spoiler: true,
+            description: "To może być silksong",
+            media: {
+              url: imageURL,
+            },
+          },
+        ],
       },
     ],
   };
