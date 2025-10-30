@@ -53,7 +53,7 @@ async function notifyDiscord(uuid: string) {
         type: 12,
         items: [
           {
-            spoiler: true,
+            spoiler: false,
             description: "To może być silksong",
             media: {
               url: imageURL,
