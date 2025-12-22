@@ -34,7 +34,6 @@ function showSteamCloseDialog() {
 
 async function startWhep() {
   const conn = new RTCPeerConnection();
-  console.log(conn);
 
   conn.addTransceiver('audio', { direction: 'recvonly' });
   conn.addTransceiver('video', { direction: 'recvonly' });
