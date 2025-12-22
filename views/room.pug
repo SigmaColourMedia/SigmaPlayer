@@ -12,8 +12,10 @@ html
         nav
             a(href="/")="Back to Homepage"
         h1(style="text-align: center;")=`Watch Live`
-
-        video(controls="true" poster=`/images/${room.room_id}.webp`)
+        div(class="video-wrapper")
+            div(class="loader hidden")
+                progress
+            video(controls="true" poster=`/images/${room.room_id}.webp`)
         aside
             span=`Viewers: `
             span(id="viewer-counter")=room.viewer_count
@@ -25,5 +27,6 @@ html
             h3 Could not establish connection with the remote server
             p Unknown error occurred and a remote connection could not be established.
             a(href="/")="Back to Homepage"
+
 
 
