@@ -1,7 +1,6 @@
 const video = document.querySelector('video');
 const viewerCounter = document.getElementById('viewer-counter');
 const pageID = location.pathname.split('/')[2];
-const offlineDialog = document.getElementById('offline-dialog');
 const errorDialog = document.getElementById('error-dialog');
 const loader = document.querySelector('.loader');
 
@@ -25,13 +24,6 @@ function connectSSE() {
   };
 }
 
-function showSteamCloseDialog() {
-  video.poster = '/static/fallback.png';
-  video.srcObject = null;
-  video.src = null;
-  offlineDialog.showModal();
-}
-
 async function startWhep() {
   const conn = new RTCPeerConnection();
 
@@ -50,12 +42,18 @@ async function startWhep() {
             video.play();
           });
         } else {
-          showSteamCloseDialog();
+          console.warn('closed');
         }
         break;
       }
       case 'disconnected': {
-        showSteamCloseDialog();
+        if (retries < 5) {
+          startWhep().then(() => {
+            video.play();
+          });
+        } else {
+          console.warn('disconnected');
+        }
         break;
       }
       case 'failed': {
@@ -64,7 +62,7 @@ async function startWhep() {
             video.play();
           });
         } else {
-          showSteamCloseDialog();
+          console.warn('failed');
         }
         break;
       }
