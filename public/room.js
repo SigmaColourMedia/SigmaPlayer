@@ -39,14 +39,14 @@ target.addEventListener("startwhep", (event) => {
 })
 target.addEventListener(reconnectWhepEventKey, (event) => {
     if (timeout < MAX_TIMEOUT) {
-        setTimeout(startWhep().catch(() => {
+        setTimeout(() => startWhep().catch(() => {
             target.dispatchEvent(new Event(reconnectWhepEventKey))
         }), timeout)
         // First reconnect should have no timeout
         timeout = Math.max(BASE_TIMEOUT, timeout * 2);
     } else {
         // Reconnection failed
-        errorDialog.show()
+        errorDialog.showModal()
     }
 })
 
