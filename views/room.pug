@@ -13,8 +13,8 @@ html
             a(href="/")="Back to Homepage"
         h1(style="text-align: center;")=`Watch Live`
         div(class="video-wrapper")
-            div(class="loader hidden")
-                progress
+            div(class="loader", id="video-loader")
+                div(class="loader__ring")
             video(controls="true" poster=`/images/${room.room_id}.webp`)
         aside
             span=`Viewers: `

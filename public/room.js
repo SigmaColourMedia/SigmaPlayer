@@ -2,7 +2,7 @@ const video = document.querySelector("video");
 const viewerCounter = document.getElementById("viewer-counter");
 const pageID = location.pathname.split("/")[2];
 const errorDialog = document.getElementById("error-dialog");
-const loader = document.querySelector(".loader");
+const loader = document.getElementById("video-loader");
 
 function connectSSE() {
   const sse = new EventSource(`/events/room?id=${pageID}`);
@@ -22,35 +22,42 @@ function connectSSE() {
   };
 }
 
-let timeout = 0;
-const BASE_TIMEOUT = 1000;
-const MAX_TIMEOUT = 16000;
-
-const startWhepEventKey = "startwhep";
-const reconnectWhepEventKey = "reconnectwhep";
-
-const target = new EventTarget();
-target.addEventListener("startwhep", (event) => {
-  startWhep().catch(() => {
-    target.dispatchEvent(new Event(reconnectWhepEventKey));
-  });
-});
-target.addEventListener(reconnectWhepEventKey, (event) => {
-  if (timeout < MAX_TIMEOUT) {
-    setTimeout(
-      () =>
-        startWhep().catch(() => {
-          target.dispatchEvent(new Event(reconnectWhepEventKey));
-        }),
-      timeout
-    );
-    // First reconnect should have no timeout
-    timeout = Math.max(BASE_TIMEOUT, timeout * 2);
-  } else {
-    // Reconnection failed
-    errorDialog.showModal();
+function onConnectionStateChange(event) {
+  console.log("connection state change: ", event.target.connectionState);
+  switch (event.target.connectionState) {
+    case "closed": {
+      terminateConnection(event.target);
+      console.log("closing connection");
+      video.src = null;
+      loader.classList.remove("hidden");
+      break;
+    }
+    case "failed": {
+      terminateConnection(event.target);
+      video.src = null;
+      loader.classList.remove("hidden");
+      break;
+    }
+    case "disconnected": {
+      loader.classList.remove("hidden");
+      break;
+    }
+    case "connecting": {
+      loader.classList.remove("hidden");
+      break;
+    }
+    case "connected": {
+      video.play();
+      loader.classList.add("hidden");
+      break;
+    }
   }
-});
+}
+
+function terminateConnection(conn) {
+  conn.close();
+  reconnectRTCP();
+}
 
 async function startWhep() {
   const conn = new RTCPeerConnection();
@@ -60,49 +67,43 @@ async function startWhep() {
   conn.ontrack = ({ streams }) => {
     video.srcObject = streams[0];
   };
+  conn.addEventListener("connectionstatechange", onConnectionStateChange);
 
-  conn.addEventListener("connectionstatechange", () => {
-    switch (conn.connectionState) {
-      case "closed": {
-        target.dispatchEvent(new Event(reconnectWhepEventKey));
-        console.warn("closed");
-        break;
-      }
-      case "disconnected": {
-        target.dispatchEvent(new Event(reconnectWhepEventKey));
-        console.warn("disconnected");
-        break;
-      }
-      case "failed": {
-        target.dispatchEvent(new Event(reconnectWhepEventKey));
-        console.warn("failed");
-        break;
-      }
-      case "connecting": {
-        loader.classList.toggle("hidden");
-        break;
-      }
-      case "connected": {
-        timeout = 0;
-        loader.classList.toggle("hidden");
-        break;
-      }
-    }
-  });
+  try {
+    const sdp_offer = await conn.createOffer();
+    await conn.setLocalDescription(sdp_offer);
 
-  const sdp_offer = await conn.createOffer();
-  await conn.setLocalDescription(sdp_offer);
+    const sdp_answer = await fetch(`/whep?target_id=${pageID}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/sdp",
+      },
+      body: sdp_offer.sdp,
+    }).then((res) => res.text());
 
-  const sdp_answer = await fetch(`/whep?target_id=${pageID}`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/sdp",
-    },
-    body: sdp_offer.sdp,
-  }).then((res) => res.text());
-
-  await conn.setRemoteDescription({ sdp: sdp_answer, type: "answer" });
+    await conn.setRemoteDescription({ sdp: sdp_answer, type: "answer" });
+  } catch (err) {
+    console.error("Error starting WHEP: ", err);
+    conn.close();
+    reconnectRTCP();
+  }
 }
 
 connectSSE();
-target.dispatchEvent(new Event(startWhepEventKey));
+startWhep();
+
+let timeout = 0;
+let reconnectTimer;
+const BASE_TIMEOUT = 1000;
+const MAX_TIMEOUT = 16000;
+
+function reconnectRTCP() {
+  console.log("reconnect attempt at timeout: ", timeout);
+  if (timeout >= MAX_TIMEOUT) {
+    errorDialog.showModal();
+    return;
+  }
+  clearTimeout(reconnectTimer);
+  reconnectTimer = setTimeout(startWhep, timeout);
+  timeout = Math.max(BASE_TIMEOUT, timeout * 2);
+}
