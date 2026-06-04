@@ -14,6 +14,10 @@ socket.on("message", async (data) => {
       await handleThumbnailEvent(rpcEvent.params.uuid);
       break;
     }
+    case "new_room": {
+      await handleThumbnailEvent(rpcEvent.params.uuid);
+      break;
+    }
     case "room_change": {
       eventEmitter.emit(
         EVENT_MAP.ROOM_UPDATE,
